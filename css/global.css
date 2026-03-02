@@ -52,7 +52,7 @@ nav {
 }
 
 .nav-links a {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.3em;
   color: var(--dim);
@@ -127,7 +127,7 @@ footer {
 }
 
 footer p {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 0.3em;
   color: var(--border);
   text-transform: uppercase;
@@ -146,5 +146,5 @@ footer p {
     gap: 8px;
   }
 
-  footer p { font-size: 0.55rem; }
+  footer p { font-size: 0.65rem; }
 }
