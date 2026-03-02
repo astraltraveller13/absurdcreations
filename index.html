@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Al's Absurd Creations — Artist</title>
+  <title>Absurd Creations — Artist</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,11 +66,11 @@
 
     /* HERO */
     .hero {
-      height: 100vh;
+      height: auto;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 0 80px;
+      justify-content: flex-start;
+      padding: 48px 60px 50px;
       max-width: 1100px;
       margin: 0 auto;
       position: relative;
@@ -79,6 +79,7 @@
 
     .hero-wrap {
       position: relative;
+      margin-top: 76px;
     }
 
     .hero-wrap::before {
@@ -99,7 +100,7 @@
     }
 
     .hero-title {
-      font-size: clamp(5rem, 14vw, 14rem);
+      font-size: clamp(2.5rem, 7vw, 7rem);
       font-weight: 700;
       line-height: 0.88;
       letter-spacing: -0.02em;
@@ -135,7 +136,7 @@
 
     /* SECTIONS */
     section {
-      padding: 120px 60px;
+      padding: 50px 60px 120px;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -399,8 +400,8 @@
     }
 
     .reveal {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 1;
+      transform: none;
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
@@ -412,7 +413,7 @@
     @media (max-width: 768px) {
       nav { padding: 24px 24px; }
       .hero { padding: 0 24px 60px; }
-      .hero-title { font-size: clamp(4rem, 20vw, 8rem); }
+      .hero-title { font-size: clamp(2rem, 10vw, 4rem); }
       section { padding: 80px 24px; }
       .bio-grid { grid-template-columns: 1fr; gap: 40px; }
       .bio-image-placeholder { display: none; }
@@ -424,7 +425,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Al's Absurd Creations</a>
+    <a href="#" class="nav-logo">Absurd Creations</a>
     <ul class="nav-links">
       <li><a href="#bio">About</a></li>
       <li><a href="#tour">Tour</a></li>
@@ -436,7 +437,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow">New Album — Hollow Light — Out Now</div>
-    <h1 class="hero-title">Al's Absurd Creations</h1>
+    <h1 class="hero-title">Absurd Creations</h1>
     <p class="hero-sub">Electronic / Ambient / Experimental</p>
     <span class="scroll-hint">Scroll</span>
   </div>
@@ -448,27 +449,27 @@
     <div class="bio-grid reveal">
       <div class="bio-image-placeholder">Artist Photo</div>
       <div class="bio-text">
-        <h2>Sounds From<br>The Edge</h2>
+        <h2>Chaos Has<br>A Melody</h2>
         <p>
-          <strong>Vale</strong> is the solo project of Berlin-based producer and sound artist Mara Solano. Drawing from the fringes of electronic music, her compositions dissolve the boundaries between silence and sound — between the analog and the infinite.
+          <strong>Absurd Creations</strong> is the brainchild of Al Mercer — a self-taught multi-instrumentalist, accidental producer, and full-time chaos enthusiast from Austin, Texas. What started as late-night bedroom recordings on a broken four-track has grown into one of the most unpredictable live acts in the underground circuit.
         </p>
         <p>
-          Her 2024 debut record <strong>Hollow Light</strong> was described as "a meditation you didn't know you needed" — recorded in an abandoned textile warehouse over three solitary months, the album pulses with restrained intensity.
+          Drawing from surf rock, lo-fi jazz, noise pop, and the occasional polka detour, Al's music defies easy categorization. His 2023 record <strong>Furniture On Fire</strong> was recorded entirely in a rented storage unit and described by one reviewer as "the sound of a man wrestling a synthesizer and somehow winning."
         </p>
         <p>
-          Vale performs live with a custom modular rig and a single spotlight. Nothing more.
+          Al performs live with a rotating cast of collaborators, a wall of vintage gear, and an unshakeable commitment to keeping things weird.
         </p>
         <div class="bio-stats">
           <div>
-            <div class="stat-num">3</div>
+            <div class="stat-num">4</div>
             <div class="stat-label">Albums</div>
           </div>
           <div>
-            <div class="stat-num">40+</div>
+            <div class="stat-num">80+</div>
             <div class="stat-label">Live Dates</div>
           </div>
           <div>
-            <div class="stat-num">12</div>
+            <div class="stat-num">8</div>
             <div class="stat-label">Countries</div>
           </div>
         </div>
@@ -490,45 +491,51 @@
       </thead>
       <tbody>
         <tr>
-          <td class="td-date">Mar 14 · 2026</td>
-          <td class="td-city">Berlin</td>
-          <td class="td-venue">Berghain Kantine</td>
+          <td class="td-date">Mar 15 · 2026</td>
+          <td class="td-city">Austin</td>
+          <td class="td-venue">Hole in the Wall</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Mar 22 · 2026</td>
-          <td class="td-city">Amsterdam</td>
-          <td class="td-venue">Paradiso — Noord</td>
+          <td class="td-date">Mar 21 · 2026</td>
+          <td class="td-city">Nashville</td>
+          <td class="td-venue">The Basement East</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Apr 4 · 2026</td>
-          <td class="td-city">London</td>
-          <td class="td-venue">Cafe OTO</td>
+          <td class="td-date">Apr 2 · 2026</td>
+          <td class="td-city">Chicago</td>
+          <td class="td-venue">Empty Bottle</td>
           <td class="td-tickets"><span class="sold-out">Sold Out</span></td>
         </tr>
         <tr>
-          <td class="td-date">Apr 18 · 2026</td>
-          <td class="td-city">Paris</td>
-          <td class="td-venue">Le Trabendo</td>
-          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
-        </tr>
-        <tr>
-          <td class="td-date">May 3 · 2026</td>
+          <td class="td-date">Apr 11 · 2026</td>
           <td class="td-city">New York</td>
-          <td class="td-venue">Elsewhere — Zone One</td>
+          <td class="td-venue">Baby's All Right</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">May 10 · 2026</td>
+          <td class="td-date">Apr 25 · 2026</td>
           <td class="td-city">Los Angeles</td>
-          <td class="td-venue">The Regent Theater</td>
+          <td class="td-venue">The Echo</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Jun 7 · 2026</td>
-          <td class="td-city">Tokyo</td>
-          <td class="td-venue">WWW X</td>
+          <td class="td-date">May 8 · 2026</td>
+          <td class="td-city">Portland</td>
+          <td class="td-venue">Mississippi Studios</td>
+          <td class="td-tickets"><span class="sold-out">Sold Out</span></td>
+        </tr>
+        <tr>
+          <td class="td-date">May 17 · 2026</td>
+          <td class="td-city">Seattle</td>
+          <td class="td-venue">Neumos</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">Jun 3 · 2026</td>
+          <td class="td-city">Denver</td>
+          <td class="td-venue">Larimer Lounge</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
       </tbody>
@@ -574,7 +581,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 Al's Absurd Creations — All Rights Reserved</p>
+    <p>© 2026 Absurd Creations — All Rights Reserved</p>
     <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e13131715121b3c0a1d10195111090f151f521f1311">[email&#160;protected]</a></p>
   </footer>
 
