@@ -632,8 +632,33 @@
     <div class="newsletter">
       <p class="newsletter-label">Stay in the loop</p>
       <div class="newsletter-form">
-        <input type="email" class="newsletter-input" placeholder="Your email address" />
-        <button class="newsletter-btn">Subscribe</button>
+        <div id="mc_embed_shell">
+          <div id="mc_embed_signup">
+            <form action="https://absurdcreations.us16.list-manage.com/subscribe/post?u=87cff52e7418ce599e56f1d62&amp;id=3a16ce7383&amp;f_id=00eec2e1f0"
+                  method="post"
+                  id="mc-embedded-subscribe-form"
+                  name="mc-embedded-subscribe-form"
+                  class="validate"
+                  target="_self"
+                  novalidate="">
+              <div id="mc_embed_signup_scroll" style="display:flex; gap:0; width:100%;">
+                <div class="mc-field-group" style="flex:1;">
+                  <label for="mce-EMAIL" style="display:none;">Email Address</label>
+                  <input type="email" name="EMAIL" class="required email newsletter-input" id="mce-EMAIL" required value="" placeholder="Your email address">
+                </div>
+                <div id="mce-responses">
+                  <div class="response" id="mce-error-response" style="display:none;"></div>
+                  <div class="response" id="mce-success-response" style="display:none;"></div>
+                </div>
+                <!-- Honeypot anti-spam field — do not remove -->
+                <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                  <input type="text" name="b_87cff52e7418ce599e56f1d62_3a16ce7383" tabindex="-1" value="">
+                </div>
+                <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="newsletter-btn" value="Subscribe">
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -773,6 +798,36 @@
     <p>© 2026 Absurd Creations — All Rights Reserved</p>
     <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa8a5a5a1a3a4ad8aaba8b9bfb8aea9b8afabbea3a5a4b9e4a9a5a7">[email&#160;protected]</a></p>
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+  <script>
+    (function($) {
+      window.fnames = new Array(); window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+  </script>
+  <style>
+    #mc_embed_signup { background: transparent !important; }
+    #mc_embed_signup_scroll { display: flex !important; gap: 0 !important; width: 100% !important; }
+    #mc_embed_signup .mc-field-group { flex: 1; margin-bottom: 0 !important; }
+    #mc_embed_signup #mc-embedded-subscribe { margin: 0 !important; }
+    #mc_embed_signup div.mce_inline_error {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      background: transparent !important;
+      color: var(--accent) !important;
+      padding: 4px 0 0 !important;
+    }
+    #mce-success-response, #mce-error-response {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--accent) !important;
+    }
+  </style>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const hamburger = document.getElementById('hamburger');
