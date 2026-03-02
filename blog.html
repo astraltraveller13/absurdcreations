@@ -3,277 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog — Absurd Creations</title>
+  <title>Blog - Absurd Creations</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white: #f0ece4;
-      --dim: #888880;
-      --accent: #c8a96e;
-      --border: rgba(200,169,110,0.2);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: #000;
-      color: var(--white);
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      cursor: crosshair;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 60px;
-      background: #000;
-    }
-
-    .nav-logo {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: 0.4em;
-      color: var(--white);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      color: var(--dim);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a.active { color: var(--accent); }
-
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      z-index: 200;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--white);
-      transition: all 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* MOBILE MENU */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 150;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      color: var(--white);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    /* PAGE */
-    .page-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 140px 60px 120px;
-    }
-
-    .page-header {
-      margin-bottom: 70px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .page-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .page-title {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      line-height: 0.9;
-    }
-
-    /* BLOG GRID */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .blog-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      padding: 40px;
-      border: 1px solid var(--border);
-      margin: -1px 0 0 -1px;
-      transition: background 0.3s;
-      position: relative;
-    }
-
-    .blog-card:hover {
-      background: rgba(200,169,110,0.04);
-    }
-
-    .blog-card:hover .card-title {
-      color: var(--accent);
-    }
-
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .card-date {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--dim);
-      text-transform: uppercase;
-    }
-
-    .card-tag {
-      font-size: 0.55rem;
-      letter-spacing: 0.3em;
-      color: var(--accent);
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-    }
-
-    .card-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      transition: color 0.3s;
-    }
-
-    .card-excerpt {
-      font-size: 0.8rem;
-      font-weight: 300;
-      color: var(--dim);
-      line-height: 1.8;
-    }
-
-    .card-arrow {
-      display: inline-block;
-      margin-top: 24px;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-
-    /* FEATURED POST */
-    .blog-card.featured {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .featured-image {
-      aspect-ratio: 4/3;
-      background: #0a0a0a;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--border);
-      font-size: 0.55rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-
-    .featured-content { padding: 0; }
-
-    /* FOOTER */
-    footer {
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    footer p {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--border);
-      text-transform: uppercase;
-    }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .nav-links { display: none !important; }
-      .hamburger { display: flex; }
-
-      .page-wrap { padding: 100px 24px 60px; }
-      .page-header { margin-bottom: 40px; }
-
-      .blog-grid { grid-template-columns: 1fr; gap: 0; }
-      .blog-card { padding: 28px 0; border: none; border-bottom: 1px solid var(--border); margin: 0; }
-      .blog-card.featured { grid-column: span 1; grid-template-columns: 1fr; gap: 20px; }
-      .featured-image { aspect-ratio: 16/9; }
-
-      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/blog.css"/>
 </head>
 <body>
 
@@ -313,109 +46,78 @@
         <div class="featured-image">Post Image</div>
         <div class="featured-content">
           <div class="card-meta">
-            <span class="card-date">Feb 28 · 2026</span>
+            <span class="card-date">Feb 28 - 2026</span>
             <span class="card-tag">Studio</span>
           </div>
           <h2 class="card-title">We Accidentally Recorded an Album in a Bowling Alley</h2>
-          <p class="card-excerpt">What started as a detour to replace a broken kick drum pedal turned into three days of the most inspired recording we've ever done. The pins, the ambient din, the sticky carpet — it all ended up on tape.</p>
-          <span class="card-arrow">Read More →</span>
+          <p class="card-excerpt">What started as a detour to replace a broken kick drum pedal turned into three days of the most inspired recording we've ever done. The pins, the ambient din, the sticky carpet - it all ended up on tape.</p>
+          <span class="card-arrow">Read More &#8594;</span>
         </div>
       </a>
 
       <!-- POST 2 -->
-        <a href="post-2.html" class="blog-card">
+      <a href="post-2.html" class="blog-card">
         <div class="card-meta">
-          <span class="card-date">Mar 10 · 2026</span>
+          <span class="card-date">Mar 10 - 2026</span>
           <span class="card-tag">Tour</span>
         </div>
         <h2 class="card-title">Your New Post Title Goes Here</h2>
         <p class="card-excerpt">A short 1-2 sentence summary of what the post is about. This is what visitors see on the listing page.</p>
-        <span class="card-arrow">Read More →</span>
+        <span class="card-arrow">Read More &#8594;</span>
       </a>
 
       <!-- POST 3 -->
       <a href="post-template.html" class="blog-card">
         <div class="card-meta">
-          <span class="card-date">Jan 30 · 2026</span>
+          <span class="card-date">Jan 30 - 2026</span>
           <span class="card-tag">Tour</span>
         </div>
         <h2 class="card-title">Nashville Was Supposed to Be a One-Night Stop</h2>
         <p class="card-excerpt">We ended up staying four days, playing three unplanned shows, and leaving with a new song and a mystery harmonica we can't account for.</p>
-        <span class="card-arrow">Read More →</span>
+        <span class="card-arrow">Read More &#8594;</span>
       </a>
 
       <!-- POST 4 -->
       <a href="post-template.html" class="blog-card">
         <div class="card-meta">
-          <span class="card-date">Jan 14 · 2026</span>
+          <span class="card-date">Jan 14 - 2026</span>
           <span class="card-tag">Music</span>
         </div>
         <h2 class="card-title">What We Were Listening to While Writing Furniture On Fire</h2>
         <p class="card-excerpt">Surf instrumentals, Norwegian black metal, and a lot of late-night public radio. A playlist that explains everything and nothing.</p>
-        <span class="card-arrow">Read More →</span>
+        <span class="card-arrow">Read More &#8594;</span>
       </a>
 
       <!-- POST 5 -->
       <a href="post-template.html" class="blog-card">
         <div class="card-meta">
-          <span class="card-date">Dec 20 · 2025</span>
+          <span class="card-date">Dec 20 - 2025</span>
           <span class="card-tag">News</span>
         </div>
         <h2 class="card-title">Year in Review: The Absurd Highlights of 2025</h2>
-        <p class="card-excerpt">From the van breakdown outside Amarillo to selling out Chicago with 24 hours notice — a look back at the year that was.</p>
-        <span class="card-arrow">Read More →</span>
+        <p class="card-excerpt">From the van breakdown outside Amarillo to selling out Chicago with 24 hours notice - a look back at the year that was.</p>
+        <span class="card-arrow">Read More &#8594;</span>
       </a>
 
       <!-- POST 6 -->
       <a href="post-template.html" class="blog-card">
         <div class="card-meta">
-          <span class="card-date">Dec 5 · 2025</span>
+          <span class="card-date">Dec 5 - 2025</span>
           <span class="card-tag">Studio</span>
         </div>
         <h2 class="card-title">Recording in a Storage Unit: A Practical Guide</h2>
         <p class="card-excerpt">Acoustics, temperature control, neighbor complaints, and why a moving blanket is the best investment you'll ever make.</p>
-        <span class="card-arrow">Read More →</span>
+        <span class="card-arrow">Read More &#8594;</span>
       </a>
 
     </div>
   </div>
 
   <footer>
-    <p>© 2026 Absurd Creations — All Rights Reserved</p>
+    <p>&copy; 2026 Absurd Creations - All Rights Reserved</p>
     <p>Booking: booking@absurdcreations.com</p>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.querySelector('.nav-links');
-    const breakpoint = window.matchMedia('(max-width: 768px)');
-
-    function handleViewport(e) {
-      if (e.matches) {
-        hamburger.style.display = 'flex';
-      } else {
-        hamburger.style.display = 'none';
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    }
-
-    breakpoint.addEventListener('change', handleViewport);
-    handleViewport(breakpoint);
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-    });
-
-    function closeMenu() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  </script>
+  <script src="js/nav.js"></script>
 </body>
 </html>
