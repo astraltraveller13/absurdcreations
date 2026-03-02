@@ -451,6 +451,80 @@
       transform: none;
     }
 
+    /* NEWSLETTER */
+    .newsletter-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 25px 60px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .newsletter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .newsletter-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--dim);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      padding: 12px 20px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--dim);
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--accent);
+    }
+
+    .newsletter-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #000;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 12px 24px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+    }
+
+    .newsletter-btn:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
@@ -507,6 +581,10 @@
 
       footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
       footer p { font-size: 0.55rem; }
+
+      .newsletter-wrap { padding: 25px 24px; }
+      .newsletter { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .newsletter-form { max-width: 100%; width: 100%; }
     }
 
     @media (max-width: 380px) {
@@ -545,6 +623,17 @@
     <p class="hero-sub">Electronic / Ambient / Experimental</p>
     <span class="scroll-hint">Scroll</span>
   </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-wrap">
+    <div class="newsletter">
+      <p class="newsletter-label">Stay in the loop</p>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="Your email address" />
+        <button class="newsletter-btn">Subscribe</button>
+      </div>
+    </div>
   </div>
 
   <!-- BIO -->
@@ -680,10 +769,10 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Absurd Creations — All Rights Reserved</p>
-    <p>Booking: booking@absurdcreations.com</p>
+    <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa8a5a5a1a3a4ad8aaba8b9bfb8aea9b8afabbea3a5a4b9e4a9a5a7">[email&#160;protected]</a></p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const navLinks = document.querySelector('.nav-links');
@@ -721,10 +810,4 @@
 
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => observer.observe(r));
-  </script>
-</body>
-</html>
+    const observ
