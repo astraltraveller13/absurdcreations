@@ -64,6 +64,52 @@
 
     .nav-links a:hover { color: var(--white); }
 
+    /* HAMBURGER — hidden on desktop, shown via JS on mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE MENU OVERLAY */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+
     /* HERO */
     .hero {
       height: auto;
@@ -267,10 +313,7 @@
       cursor: pointer;
     }
 
-    .tour-table tbody tr:hover td {
-      color: var(--white);
-    }
-
+    .tour-table tbody tr:hover td { color: var(--white); }
     .tour-table tbody tr:hover .td-date { color: var(--accent); }
 
     .td-date {
@@ -298,9 +341,7 @@
       transition: color 0.3s;
     }
 
-    .td-tickets {
-      text-align: right;
-    }
+    .td-tickets { text-align: right; }
 
     .ticket-btn {
       font-family: 'Oswald', sans-serif;
@@ -410,14 +451,67 @@
       transform: none;
     }
 
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
-      nav { padding: 24px 24px; }
-      .hero { padding: 0 24px 60px; }
-      .hero-title { font-size: clamp(2rem, 10vw, 4rem); }
-      section { padding: 80px 24px; }
-      .bio-grid { grid-template-columns: 1fr; gap: 40px; }
-      .bio-image-placeholder { display: none; }
-      footer { padding: 30px 24px; flex-direction: column; gap: 10px; }
+      nav { padding: 20px 24px; }
+      .nav-links { display: none !important; }
+      .hamburger { display: flex; }
+
+      .hero-wrap { margin-top: 62px; }
+      .hero { padding: 32px 24px 40px; }
+      .hero-title { font-size: clamp(2.2rem, 11vw, 3.5rem); line-height: 1; }
+      .hero-eyebrow { font-size: 0.55rem; letter-spacing: 0.35em; }
+      .hero-sub { font-size: 0.65rem; margin-top: 16px; }
+      .scroll-hint { display: none; }
+
+      section { padding: 40px 24px 60px; }
+      .section-label { font-size: 0.55rem; margin-bottom: 30px; }
+
+      .bio-grid { grid-template-columns: 1fr; gap: 30px; }
+      .bio-image-placeholder { aspect-ratio: 16/9; max-height: 220px; }
+      .bio-text h2 { font-size: 2rem; margin-bottom: 20px; }
+      .bio-text p { font-size: 0.875rem; line-height: 1.8; }
+      .bio-stats { gap: 24px; margin-top: 28px; padding-top: 28px; }
+      .stat-num { font-size: 2rem; }
+      .stat-label { font-size: 0.55rem; }
+
+      .tour-table thead { display: none; }
+      .tour-table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 2px 12px;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .tour-table td { padding: 0; border: none; }
+      .td-date { grid-column: 1; grid-row: 2; font-size: 0.6rem; width: auto; }
+      .td-city { grid-column: 1; grid-row: 1; font-size: 1.2rem; }
+      .td-venue { display: none; }
+      .td-tickets {
+        grid-column: 2; grid-row: 1 / 3;
+        display: flex; align-items: center; justify-content: flex-end;
+      }
+      .ticket-btn { padding: 8px 14px; font-size: 0.55rem; }
+      .sold-out { font-size: 0.55rem; }
+
+      .social-section { padding: 60px 24px; }
+      .social-icons { gap: 8px; }
+      .social-link {
+        padding: 12px 16px;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        flex: 1 1 calc(50% - 8px);
+        justify-content: center;
+      }
+
+      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
+      footer p { font-size: 0.55rem; }
+    }
+
+    @media (max-width: 380px) {
+      .hero-title { font-size: 2rem; }
+      .social-link { flex: 1 1 100%; }
     }
   </style>
 </head>
@@ -431,7 +525,17 @@
       <li><a href="#tour">Tour</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#bio" onclick="closeMenu()">About</a>
+    <a href="#tour" onclick="closeMenu()">Tour</a>
+    <a href="#connect" onclick="closeMenu()">Connect</a>
+  </div>
 
   <div class="hero-wrap">
   <!-- HERO -->
@@ -547,32 +651,26 @@
     <h2>Follow Along</h2>
     <div class="social-icons">
       <a href="#" class="social-link">
-        <!-- Instagram -->
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         Instagram
       </a>
       <a href="#" class="social-link">
-        <!-- Spotify -->
         <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
         Spotify
       </a>
       <a href="#" class="social-link">
-        <!-- SoundCloud -->
         <svg viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.53-.02 2.68-1.32 2.68-2.86 0-1.58-1.29-2.86-2.88-2.86-.26 0-.51.03-.74.1-.1-2.37-2.01-4.28-4.38-4.28-1.45 0-2.74.65-3.44 1.77zm-1.06.88c-.15-.04-.3-.06-.46-.06-1.24 0-2.24 1-2.24 2.24s1 2.24 2.24 2.24h.46V9.75zm-3.4.9C7.1 10.76 7 11 7 11.24c0 .85.68 1.54 1.54 1.54l.16-.01V10.6l-.16-.02a1.5 1.5 0 00-.38.05h-.01zm-1.79.52c-.04.17-.06.34-.06.52 0 .68.54 1.24 1.22 1.24l.19-.02v-2.46l-.19-.02c-.53 0-.99.32-1.16.74zm-1.82.2c-.02.1-.03.21-.03.32 0 .52.41.94.93.94l.22-.02V11.3l-.22-.02c-.44 0-.81.28-.9.67z"/></svg>
         SoundCloud
       </a>
       <a href="#" class="social-link">
-        <!-- YouTube -->
         <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
         YouTube
       </a>
       <a href="#" class="social-link">
-        <!-- Bandcamp -->
         <svg viewBox="0 0 24 24"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
         Bandcamp
       </a>
       <a href="#" class="social-link">
-        <!-- X/Twitter -->
         <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         Twitter / X
       </a>
@@ -582,10 +680,51 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Absurd Creations — All Rights Reserved</p>
-    <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e13131715121b3c0a1d10195111090f151f521f1311">[email&#160;protected]</a></p>
+    <p>Booking: booking@absurdcreations.com</p>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.querySelector('.nav-links');
+    const breakpoint = window.matchMedia('(max-width: 768px)');
+
+    // Detect viewport and switch nav accordingly
+    function handleViewport(e) {
+      if (e.matches) {
+        // Mobile: show hamburger (nav-links hidden via CSS)
+        hamburger.style.display = 'flex';
+      } else {
+        // Desktop: hide hamburger, close any open mobile menu
+        hamburger.style.display = 'none';
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    breakpoint.addEventListener('change', handleViewport);
+    handleViewport(breakpoint); // run on page load
+
+    // Toggle mobile menu
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) =
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
