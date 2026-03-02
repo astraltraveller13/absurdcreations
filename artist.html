@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VALE — Artist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #f0ece4;
+      --dim: #888880;
+      --accent: #c8a96e;
+      --border: rgba(200,169,110,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #000;
+      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      cursor: crosshair;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      background: linear-gradient(to bottom, #000 60%, transparent);
+    }
+
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeUp 1s ease both 0.2s;
+    }
+
+    .hero-title {
+      font-size: clamp(5rem, 14vw, 14rem);
+      font-weight: 700;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      animation: fadeUp 1s ease both 0.4s;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      margin-top: 30px;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      color: var(--dim);
+      text-transform: uppercase;
+      animation: fadeUp 1s ease both 0.6s;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: var(--border);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      animation: fadeUp 1s ease both 1s;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 120px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* BIO */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .bio-image-placeholder {
+      aspect-ratio: 3/4;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bio-image-placeholder::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 1px solid rgba(200,169,110,0.08);
+    }
+
+    .bio-text h2 {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      line-height: 1.05;
+    }
+
+    .bio-text p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .bio-text p strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .bio-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* TOUR */
+    .tour-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tour-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tour-table th {
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0 0 20px;
+      font-weight: 400;
+    }
+
+    .tour-table th:last-child { text-align: right; }
+
+    .tour-table td {
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+
+    .tour-table tbody tr {
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .tour-table tbody tr:hover td {
+      color: var(--white);
+    }
+
+    .tour-table tbody tr:hover .td-date { color: var(--accent); }
+
+    .td-date {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--dim);
+      text-transform: uppercase;
+      transition: color 0.3s;
+      width: 160px;
+    }
+
+    .td-city {
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .td-venue {
+      font-size: 0.75rem;
+      color: var(--dim);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+
+    .td-tickets {
+      text-align: right;
+    }
+
+    .ticket-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      background: transparent;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .ticket-btn:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    .sold-out {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    /* SOCIAL */
+    .social-section {
+      text-align: center;
+      padding: 100px 60px;
+      border-top: 1px solid var(--border);
+    }
+
+    .social-section h2 {
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      color: var(--dim);
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--dim);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 28px;
+      transition: all 0.3s;
+    }
+
+    .social-link:hover {
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--border);
+      text-transform: uppercase;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 24px 24px; }
+      .hero { padding: 0 24px 60px; }
+      .hero-title { font-size: clamp(4rem, 20vw, 8rem); }
+      section { padding: 80px 24px; }
+      .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+      .bio-image-placeholder { display: none; }
+      footer { padding: 30px 24px; flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Vale</a>
+    <ul class="nav-links">
+      <li><a href="#bio">About</a></li>
+      <li><a href="#tour">Tour</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">New Album — Hollow Light — Out Now</div>
+    <h1 class="hero-title">
+      Vale<span>音楽</span>
+    </h1>
+    <p class="hero-sub">Electronic / Ambient / Experimental</p>
+    <span class="scroll-hint">Scroll</span>
+  </div>
+
+  <!-- BIO -->
+  <section id="bio">
+    <div class="section-label">Biography</div>
+    <div class="bio-grid reveal">
+      <div class="bio-image-placeholder">Artist Photo</div>
+      <div class="bio-text">
+        <h2>Sounds From<br>The Edge</h2>
+        <p>
+          <strong>Vale</strong> is the solo project of Berlin-based producer and sound artist Mara Solano. Drawing from the fringes of electronic music, her compositions dissolve the boundaries between silence and sound — between the analog and the infinite.
+        </p>
+        <p>
+          Her 2024 debut record <strong>Hollow Light</strong> was described as "a meditation you didn't know you needed" — recorded in an abandoned textile warehouse over three solitary months, the album pulses with restrained intensity.
+        </p>
+        <p>
+          Vale performs live with a custom modular rig and a single spotlight. Nothing more.
+        </p>
+        <div class="bio-stats">
+          <div>
+            <div class="stat-num">3</div>
+            <div class="stat-label">Albums</div>
+          </div>
+          <div>
+            <div class="stat-num">40+</div>
+            <div class="stat-label">Live Dates</div>
+          </div>
+          <div>
+            <div class="stat-num">12</div>
+            <div class="stat-label">Countries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOUR -->
+  <section id="tour">
+    <div class="section-label">Tour Dates</div>
+    <table class="tour-table reveal">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>City</th>
+          <th>Venue</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-date">Mar 14 · 2026</td>
+          <td class="td-city">Berlin</td>
+          <td class="td-venue">Berghain Kantine</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">Mar 22 · 2026</td>
+          <td class="td-city">Amsterdam</td>
+          <td class="td-venue">Paradiso — Noord</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">Apr 4 · 2026</td>
+          <td class="td-city">London</td>
+          <td class="td-venue">Cafe OTO</td>
+          <td class="td-tickets"><span class="sold-out">Sold Out</span></td>
+        </tr>
+        <tr>
+          <td class="td-date">Apr 18 · 2026</td>
+          <td class="td-city">Paris</td>
+          <td class="td-venue">Le Trabendo</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">May 3 · 2026</td>
+          <td class="td-city">New York</td>
+          <td class="td-venue">Elsewhere — Zone One</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">May 10 · 2026</td>
+          <td class="td-city">Los Angeles</td>
+          <td class="td-venue">The Regent Theater</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+        <tr>
+          <td class="td-date">Jun 7 · 2026</td>
+          <td class="td-city">Tokyo</td>
+          <td class="td-venue">WWW X</td>
+          <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SOCIAL -->
+  <div id="connect" class="social-section reveal">
+    <h2>Follow Along</h2>
+    <div class="social-icons">
+      <a href="#" class="social-link">
+        <!-- Instagram -->
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="#" class="social-link">
+        <!-- Spotify -->
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Spotify
+      </a>
+      <a href="#" class="social-link">
+        <!-- SoundCloud -->
+        <svg viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.53-.02 2.68-1.32 2.68-2.86 0-1.58-1.29-2.86-2.88-2.86-.26 0-.51.03-.74.1-.1-2.37-2.01-4.28-4.38-4.28-1.45 0-2.74.65-3.44 1.77zm-1.06.88c-.15-.04-.3-.06-.46-.06-1.24 0-2.24 1-2.24 2.24s1 2.24 2.24 2.24h.46V9.75zm-3.4.9C7.1 10.76 7 11 7 11.24c0 .85.68 1.54 1.54 1.54l.16-.01V10.6l-.16-.02a1.5 1.5 0 00-.38.05h-.01zm-1.79.52c-.04.17-.06.34-.06.52 0 .68.54 1.24 1.22 1.24l.19-.02v-2.46l-.19-.02c-.53 0-.99.32-1.16.74zm-1.82.2c-.02.1-.03.21-.03.32 0 .52.41.94.93.94l.22-.02V11.3l-.22-.02c-.44 0-.81.28-.9.67z"/></svg>
+        SoundCloud
+      </a>
+      <a href="#" class="social-link">
+        <!-- YouTube -->
+        <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        YouTube
+      </a>
+      <a href="#" class="social-link">
+        <!-- Bandcamp -->
+        <svg viewBox="0 0 24 24"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+        Bandcamp
+      </a>
+      <a href="#" class="social-link">
+        <!-- X/Twitter -->
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Twitter / X
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Vale — All Rights Reserved</p>
+    <p>Booking: booking@vale-music.com</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
