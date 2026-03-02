@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VALE — Artist</title>
+  <title>Al's Absurd Creations — Artist</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,12 +70,18 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 0 60px 80px;
+      padding: 0 0 80px;
+      max-width: 1100px;
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
+    .hero-wrap {
+      position: relative;
+    }
+
+    .hero-wrap::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -118,7 +124,7 @@
     .scroll-hint {
       position: absolute;
       bottom: 40px;
-      right: 60px;
+      right: 0;
       font-size: 0.6rem;
       letter-spacing: 0.4em;
       color: var(--border);
@@ -418,7 +424,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Vale</a>
+    <a href="#" class="nav-logo">Al's Absurd Creations</a>
     <ul class="nav-links">
       <li><a href="#bio">About</a></li>
       <li><a href="#tour">Tour</a></li>
@@ -426,14 +432,14 @@
     </ul>
   </nav>
 
+  <div class="hero-wrap">
   <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow">New Album — Hollow Light — Out Now</div>
-    <h1 class="hero-title">
-      Vale<span>音楽</span>
-    </h1>
+    <h1 class="hero-title">Al's Absurd Creations</h1>
     <p class="hero-sub">Electronic / Ambient / Experimental</p>
     <span class="scroll-hint">Scroll</span>
+  </div>
   </div>
 
   <!-- BIO -->
@@ -568,21 +574,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 Vale — All Rights Reserved</p>
-    <p>Booking: booking@vale-music.com</p>
+    <p>© 2026 Al's Absurd Creations — All Rights Reserved</p>
+    <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1e13131715121b3c0a1d10195111090f151f521f1311">[email&#160;protected]</a></p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => observer.observe(r));
-  </script>
-</body>
-</html>
+    const observer = new IntersectionObserver((entries) =
