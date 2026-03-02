@@ -3,596 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Absurd Creations — Artist</title>
+  <title>Absurd Creations - Artist</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white: #f0ece4;
-      --dim: #888880;
-      --accent: #c8a96e;
-      --border: rgba(200,169,110,0.2);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: #000;
-      color: var(--white);
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      cursor: crosshair;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 60px;
-      background: linear-gradient(to bottom, #000 60%, transparent);
-    }
-
-    .nav-logo {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: 0.4em;
-      color: var(--white);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      color: var(--dim);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-
-    /* HAMBURGER — hidden on desktop, shown via JS on mobile */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-      z-index: 200;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--white);
-      transition: all 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* MOBILE MENU OVERLAY */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 150;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      color: var(--white);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    /* HERO */
-    .hero {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 48px 60px 50px;
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-wrap {
-      position: relative;
-      margin-top: 76px;
-    }
-
-    .hero-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.5em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      animation: fadeUp 1s ease both 0.2s;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 7vw, 7rem);
-      font-weight: 700;
-      line-height: 0.88;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      animation: fadeUp 1s ease both 0.4s;
-    }
-
-    .hero-title span {
-      display: block;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      margin-top: 30px;
-      font-size: 0.75rem;
-      letter-spacing: 0.35em;
-      color: var(--dim);
-      text-transform: uppercase;
-      animation: fadeUp 1s ease both 0.6s;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      right: 0;
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
-      color: var(--border);
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-      animation: fadeUp 1s ease both 1s;
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 50px 60px 120px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 50px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* BIO */
-    .bio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .bio-image-placeholder {
-      aspect-ratio: 3/4;
-      background: #0a0a0a;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--border);
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bio-image-placeholder::before {
-      content: '';
-      position: absolute;
-      top: 20px; left: 20px; right: 20px; bottom: 20px;
-      border: 1px solid rgba(200,169,110,0.08);
-    }
-
-    .bio-text h2 {
-      font-size: 3rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      line-height: 1.05;
-    }
-
-    .bio-text p {
-      font-size: 0.95rem;
-      font-weight: 300;
-      line-height: 1.9;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-
-    .bio-text p strong {
-      color: var(--white);
-      font-weight: 400;
-    }
-
-    .bio-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 40px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-
-    .stat-num {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-top: 6px;
-    }
-
-    /* TOUR */
-    .tour-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .tour-table thead tr {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .tour-table th {
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
-      color: var(--accent);
-      text-transform: uppercase;
-      text-align: left;
-      padding: 0 0 20px;
-      font-weight: 400;
-    }
-
-    .tour-table th:last-child { text-align: right; }
-
-    .tour-table td {
-      padding: 28px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      vertical-align: middle;
-    }
-
-    .tour-table tbody tr {
-      transition: background 0.2s;
-      cursor: pointer;
-    }
-
-    .tour-table tbody tr:hover td { color: var(--white); }
-    .tour-table tbody tr:hover .td-date { color: var(--accent); }
-
-    .td-date {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      color: var(--dim);
-      text-transform: uppercase;
-      transition: color 0.3s;
-      width: 160px;
-    }
-
-    .td-city {
-      font-size: 1.5rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-
-    .td-venue {
-      font-size: 0.75rem;
-      color: var(--dim);
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      transition: color 0.3s;
-    }
-
-    .td-tickets { text-align: right; }
-
-    .ticket-btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 400;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid var(--border);
-      background: transparent;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .ticket-btn:hover {
-      background: var(--accent);
-      color: #000;
-      border-color: var(--accent);
-    }
-
-    .sold-out {
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      color: var(--dim);
-      text-transform: uppercase;
-    }
-
-    /* SOCIAL */
-    .social-section {
-      text-align: center;
-      padding: 100px 60px;
-      border-top: 1px solid var(--border);
-    }
-
-    .social-section h2 {
-      font-size: 0.65rem;
-      letter-spacing: 0.5em;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-bottom: 50px;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--dim);
-      font-size: 0.65rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 16px 28px;
-      transition: all 0.3s;
-    }
-
-    .social-link:hover {
-      color: var(--white);
-      border-color: var(--accent);
-    }
-
-    .social-link svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-      flex-shrink: 0;
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
-    }
-
-    footer p {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--border);
-      text-transform: uppercase;
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* NEWSLETTER */
-    .newsletter-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 25px 60px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .newsletter {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .newsletter-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.4em;
-      color: var(--dim);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 0;
-      flex: 1;
-      max-width: 2160px;
-    }
-
-    .newsletter-input {
-      flex: 1;
-      min-width: 260px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-right: none;
-      color: var(--white);
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      padding: 12px 20px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    .newsletter-input::placeholder {
-      color: var(--dim);
-    }
-
-    .newsletter-input:focus {
-      border-color: var(--accent);
-    }
-
-    .newsletter-btn {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 400;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: #000;
-      background: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 12px 24px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.3s;
-    }
-
-    .newsletter-btn:hover {
-      background: transparent;
-      color: var(--accent);
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .nav-links { display: none !important; }
-      .hamburger { display: flex; }
-
-      .hero-wrap { margin-top: 62px; }
-      .hero { padding: 32px 24px 40px; }
-      .hero-title { font-size: clamp(2.2rem, 11vw, 3.5rem); line-height: 1; }
-      .hero-eyebrow { font-size: 0.55rem; letter-spacing: 0.35em; }
-      .hero-sub { font-size: 0.65rem; margin-top: 16px; }
-      .scroll-hint { display: none; }
-
-      section { padding: 40px 24px 60px; }
-      .section-label { font-size: 0.55rem; margin-bottom: 30px; }
-
-      .bio-grid { grid-template-columns: 1fr; gap: 30px; }
-      .bio-image-placeholder { aspect-ratio: 16/9; max-height: 220px; }
-      .bio-text h2 { font-size: 2rem; margin-bottom: 20px; }
-      .bio-text p { font-size: 0.875rem; line-height: 1.8; }
-      .bio-stats { gap: 24px; margin-top: 28px; padding-top: 28px; }
-      .stat-num { font-size: 2rem; }
-      .stat-label { font-size: 0.55rem; }
-
-      .tour-table thead { display: none; }
-      .tour-table tbody tr {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        gap: 2px 12px;
-        padding: 18px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-      .tour-table td { padding: 0; border: none; }
-      .td-date { grid-column: 1; grid-row: 2; font-size: 0.6rem; width: auto; }
-      .td-city { grid-column: 1; grid-row: 1; font-size: 1.2rem; }
-      .td-venue { display: none; }
-      .td-tickets {
-        grid-column: 2; grid-row: 1 / 3;
-        display: flex; align-items: center; justify-content: flex-end;
-      }
-      .ticket-btn { padding: 8px 14px; font-size: 0.55rem; }
-      .sold-out { font-size: 0.55rem; }
-
-      .social-section { padding: 60px 24px; }
-      .social-icons { gap: 8px; }
-      .social-link {
-        padding: 12px 16px;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
-        flex: 1 1 calc(50% - 8px);
-        justify-content: center;
-      }
-
-      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
-      footer p { font-size: 0.55rem; }
-
-      .newsletter-wrap { padding: 25px 24px; }
-      .newsletter { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .newsletter-form { max-width: 100%; width: 100%; }
-    }
-
-    @media (max-width: 380px) {
-      .hero-title { font-size: 2rem; }
-      .social-link { flex: 1 1 100%; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
 </head>
 <body>
 
@@ -621,7 +35,7 @@
   <div class="hero-wrap">
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow">New Album — Hollow Light — Out Now</div>
+    <div class="hero-eyebrow">New Album - Hollow Light - Out Now</div>
     <h1 class="hero-title">Absurd Creations</h1>
     <p class="hero-sub">Electronic / Ambient / Experimental</p>
     <span class="scroll-hint">Scroll</span>
@@ -651,7 +65,7 @@
                   <div class="response" id="mce-error-response" style="display:none;"></div>
                   <div class="response" id="mce-success-response" style="display:none;"></div>
                 </div>
-                <!-- Honeypot anti-spam field — do not remove -->
+                <!-- Honeypot anti-spam field - do not remove -->
                 <div aria-hidden="true" style="position:absolute; left:-5000px;">
                   <input type="text" name="b_87cff52e7418ce599e56f1d62_3a16ce7383" tabindex="-1" value="">
                 </div>
@@ -672,7 +86,7 @@
       <div class="bio-text">
         <h2>Chaos Has<br>A Melody</h2>
         <p>
-          <strong>Absurd Creations</strong> is the brainchild of Al Mercer — a self-taught multi-instrumentalist, accidental producer, and full-time chaos enthusiast from Austin, Texas. What started as late-night bedroom recordings on a broken four-track has grown into one of the most unpredictable live acts in the underground circuit.
+          <strong>Absurd Creations</strong> is the brainchild of Al Mercer - a self-taught multi-instrumentalist, accidental producer, and full-time chaos enthusiast from Austin, Texas. What started as late-night bedroom recordings on a broken four-track has grown into one of the most unpredictable live acts in the underground circuit.
         </p>
         <p>
           Drawing from surf rock, lo-fi jazz, noise pop, and the occasional polka detour, Al's music defies easy categorization. His 2023 record <strong>Furniture On Fire</strong> was recorded entirely in a rented storage unit and described by one reviewer as "the sound of a man wrestling a synthesizer and somehow winning."
@@ -712,49 +126,49 @@
       </thead>
       <tbody>
         <tr>
-          <td class="td-date">Mar 15 · 2026</td>
+          <td class="td-date">Mar 15 - 2026</td>
           <td class="td-city">Austin</td>
           <td class="td-venue">Hole in the Wall</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Mar 21 · 2026</td>
+          <td class="td-date">Mar 21 - 2026</td>
           <td class="td-city">Nashville</td>
           <td class="td-venue">The Basement East</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Apr 2 · 2026</td>
+          <td class="td-date">Apr 2 - 2026</td>
           <td class="td-city">Chicago</td>
           <td class="td-venue">Empty Bottle</td>
           <td class="td-tickets"><span class="sold-out">Sold Out</span></td>
         </tr>
         <tr>
-          <td class="td-date">Apr 11 · 2026</td>
+          <td class="td-date">Apr 11 - 2026</td>
           <td class="td-city">New York</td>
           <td class="td-venue">Baby's All Right</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Apr 25 · 2026</td>
+          <td class="td-date">Apr 25 - 2026</td>
           <td class="td-city">Los Angeles</td>
           <td class="td-venue">The Echo</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">May 8 · 2026</td>
+          <td class="td-date">May 8 - 2026</td>
           <td class="td-city">Portland</td>
           <td class="td-venue">Mississippi Studios</td>
           <td class="td-tickets"><span class="sold-out">Sold Out</span></td>
         </tr>
         <tr>
-          <td class="td-date">May 17 · 2026</td>
+          <td class="td-date">May 17 - 2026</td>
           <td class="td-city">Seattle</td>
           <td class="td-venue">Neumos</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
         </tr>
         <tr>
-          <td class="td-date">Jun 3 · 2026</td>
+          <td class="td-date">Jun 3 - 2026</td>
           <td class="td-city">Denver</td>
           <td class="td-venue">Larimer Lounge</td>
           <td class="td-tickets"><button class="ticket-btn">Tickets</button></td>
@@ -796,10 +210,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 Absurd Creations — All Rights Reserved</p>
-    <p>Booking: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa8a5a5a1a3a4ad8aaba8b9bfb8aea9b8afabbea3a5a4b9e4a9a5a7">[email&#160;protected]</a></p>
+    <p>&copy; 2026 Absurd Creations - All Rights Reserved</p>
+    <p>Booking: booking@absurdcreations.com</p>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
   <script>
@@ -809,63 +224,7 @@
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
   </script>
-  <style>
-    #mc_embed_signup { background: transparent !important; }
-    #mc_embed_signup_scroll { display: flex !important; gap: 0 !important; width: 100% !important; }
-    #mc_embed_signup .mc-field-group { flex: 1; margin-bottom: 0 !important; }
-    #mc_embed_signup #mc-embedded-subscribe { margin: 0 !important; }
-    #mc_embed_signup div.mce_inline_error {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      background: transparent !important;
-      color: var(--accent) !important;
-      padding: 4px 0 0 !important;
-    }
-    #mce-success-response, #mce-error-response {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: var(--accent) !important;
-    }
-  </style>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.querySelector('.nav-links');
-    const breakpoint = window.matchMedia('(max-width: 768px)');
-
-    // Detect viewport and switch nav accordingly
-    function handleViewport(e) {
-      if (e.matches) {
-        // Mobile: show hamburger (nav-links hidden via CSS)
-        hamburger.style.display = 'flex';
-      } else {
-        // Desktop: hide hamburger, close any open mobile menu
-        hamburger.style.display = 'none';
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    }
-
-    breakpoint.addEventListener('change', handleViewport);
-    handleViewport(breakpoint); // run on page load
-
-    // Toggle mobile menu
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-    });
-
-    function closeMenu() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observ
+  <script src="js/nav.js"></script>
+  <script src="js/reveal.js"></script>
+</body>
+</html>
